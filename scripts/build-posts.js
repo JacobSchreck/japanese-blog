@@ -36,9 +36,8 @@ const navItem = (post, direction) => post
 
 const renderBody = (post) => post.sections.map((section, sectionIndex) => {
   const heading = section.heading ? `\n        <h2>${escapeHtml(section.heading)}</h2>` : "";
-  const paragraphs = (section.paragraphs || []).map((paragraph, paragraphIndex) => {
-    const dropcap = sectionIndex === 0 && paragraphIndex === 0 ? ' class="dropcap"' : "";
-    return `        <p${dropcap}>${escapeHtml(paragraph)}</p>`;
+  const paragraphs = (section.paragraphs || []).map((paragraph) => {
+    return `        <p>${escapeHtml(paragraph)}</p>`;
   }).join("\n");
   return `${heading}\n${paragraphs}`;
 }).join("\n");
@@ -67,7 +66,7 @@ const renderPost = (post, index) => `<!doctype html>
   </header>
   <main class="shell article-shell"><article>
     <header class="article-header"><div class="article-kicker"><span>ENTRY ${post.id}</span><span>${escapeHtml(post.date)}</span><span>${escapeHtml(post.category)}</span></div><h1>${escapeHtml(post.title)}</h1><p class="article-subtitle">${escapeHtml(post.subtitle)}</p></header>
-    <div class="article-body panel">${renderImages(post)}${renderBody(post)}
+    <div class="article-body panel">${renderBody(post)}${renderImages(post)}
       <div class="entry-end"><span>END OF ENTRY ${post.id}</span><span class="blink">■</span></div>
     </div>
     <nav class="post-nav compact" aria-label="記事ナビゲーション">

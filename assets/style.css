@@ -569,7 +569,7 @@ a.archive-row:hover {
 .article-body p {
   margin: 0 0 30px;
   color: #b6c0cc;
-  font-size: 1rem;
+  font-size: clamp(1.1rem, 1.8vw, 1.25rem);
   line-height: 2.05;
 }
 
@@ -577,7 +577,7 @@ a.archive-row:hover {
   display: grid;
   grid-template-columns: 1fr 1fr;
   gap: 16px;
-  margin: 0 0 48px;
+  margin: 52px 0 0;
 }
 
 .entry-image {
@@ -626,15 +626,6 @@ a.archive-row:hover {
   font-size: 1.15rem;
   font-weight: 500;
   letter-spacing: .08em;
-}
-
-.article-body .dropcap::first-letter {
-  color: var(--cyan);
-  font-size: 2.5rem;
-  line-height: 1;
-  float: left;
-  margin: .1em .16em 0 0;
-  text-shadow: 0 0 16px rgba(120, 215, 255, .2);
 }
 
 .editable {
