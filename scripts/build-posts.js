@@ -43,31 +43,39 @@ const renderBody = (post) => post.sections.map((section, sectionIndex) => {
   return `${heading}\n${paragraphs}`;
 }).join("\n");
 
+const renderImages = (post) => {
+  const images = post.images || (post.image ? [post.image] : []);
+  if (!images.length) return "";
+  const figures = images.map((item) => {
+    const caption = item.caption ? `<figcaption>${escapeHtml(item.caption)}</figcaption>` : "";
+    return `        <figure class="entry-image"><img src="../${escapeHtml(item.src)}" alt="${escapeHtml(item.alt || "")}" loading="lazy">${caption}</figure>`;
+  }).join("\n");
+  return `\n      <div class="entry-gallery">\n${figures}\n      </div>`;
+};
+
 const renderPost = (post, index) => `<!doctype html>
 <html lang="ja">
 <head>
   <meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="theme-color" content="#07090f"><meta name="description" content="${escapeHtml(post.summary)}">
-  <title>${post.id} ${escapeHtml(post.title)} — 夜間通信</title><link rel="stylesheet" href="../assets/style.css"><script defer src="../assets/app.js"></script>
+  <title>${post.id} ${escapeHtml(post.title)} — BLOG</title><link rel="stylesheet" href="../assets/style.css"><script defer src="../assets/app.js"></script>
 </head>
 <body>
   <div class="noise" aria-hidden="true"></div><div class="scanlines" aria-hidden="true"></div>
   <header class="site-header">
-    <a class="brand" href="../index.html"><span class="brand-mark">◆</span><span><strong>夜間通信</strong><small>BLOG</small></span></a>
-    <nav class="main-nav" aria-label="メインナビゲーション"><a href="../index.html">HOME</a><a href="../archive.html">ARCHIVE</a><a href="../about.html">ABOUT</a></nav>
+    <a class="brand" href="../index.html"><span class="brand-mark">◆</span><span><strong>BLOG</strong></span></a>
   </header>
   <main class="shell article-shell"><article>
     <header class="article-header"><div class="article-kicker"><span>ENTRY ${post.id}</span><span>${escapeHtml(post.date)}</span><span>${escapeHtml(post.category)}</span></div><h1>${escapeHtml(post.title)}</h1><p class="article-subtitle">${escapeHtml(post.subtitle)}</p></header>
-    <div class="article-body panel">${renderBody(post)}
+    <div class="article-body panel">${renderImages(post)}${renderBody(post)}
       <div class="entry-end"><span>END OF ENTRY ${post.id}</span><span class="blink">■</span></div>
     </div>
-    <nav class="post-nav" aria-label="記事ナビゲーション">
+    <nav class="post-nav compact" aria-label="記事ナビゲーション">
       ${navItem(posts[index - 1], "PREVIOUS POST")}
-      <a href="../archive.html"><small>ARCHIVE</small><strong>ALL LOGS</strong></a>
       ${navItem(posts[index + 1], "NEXT POST")}
     </nav>
   </article></main>
-  <footer class="site-footer"><span>© 2026 夜間通信</span><span>ENTRY // ${post.id}</span></footer>
+  <footer class="site-footer"><span>© 2026 BLOG</span><span>ENTRY // ${post.id}</span></footer>
 </body>
 </html>
 `;
