@@ -575,9 +575,10 @@ a.archive-row:hover {
 
 .entry-gallery {
   display: grid;
-  grid-template-columns: 1fr 1fr;
+  grid-template-columns: 1fr;
   gap: 16px;
-  margin: 52px 0 0;
+  width: 50%;
+  margin: 52px auto 0;
 }
 
 .entry-image {
@@ -586,13 +587,13 @@ a.archive-row:hover {
 }
 
 .entry-image:first-child {
-  grid-column: 1 / -1;
+  grid-column: auto;
 }
 
 .entry-image img {
   display: block;
   width: 100%;
-  height: 430px;
+  height: auto;
   object-fit: contain;
   border: 1px solid var(--line);
   background: #070a10;
@@ -601,7 +602,7 @@ a.archive-row:hover {
 
 .entry-image:first-child img {
   height: auto;
-  max-height: 520px;
+  max-height: none;
   object-fit: cover;
 }
 
@@ -613,7 +614,7 @@ a.archive-row:hover {
 }
 
 @media (max-width: 560px) {
-  .entry-gallery { grid-template-columns: 1fr; }
+  .entry-gallery { width: 72%; }
   .entry-image:first-child { grid-column: auto; }
   .entry-image img,
   .entry-image:first-child img { height: auto; max-height: none; }
