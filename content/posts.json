@@ -42,5 +42,47 @@
         ]
       }
     ]
+  },
+  {
+    "id": "002",
+    "slug": "favorite-web-novel-shadow-slave",
+    "date": "2026.09.11",
+    "category": "WEB NOVEL",
+    "title": "僕の好きなウェブノベル: 『Shadow Slave』",
+    "subtitle": "時間があったら、読んでみてください。",
+    "summary": "『Shadow Slave』の世界とキャラクターについて話します。",
+    "coverImage": {
+      "src": "assets/images/ssCoverart.jpg",
+      "alt": "ウェブノベル『Shadow Slave』のカバーアート",
+      "caption": "『Shadow Slave』cover art"
+    },
+    "sections": [
+      {
+        "heading": "",
+        "paragraphs": [
+          "『Shadow Slave』のメインキャラクターはサニーです。サニーはとても貧乏(びんぼう)です。ある日、悪夢(あくむ)のせかいに行きます。こわい大(おお)きなばけものとけんかします。悪夢のせかいのおわりの後でサニーはとくべつなちからをもらいます。でも今サニーはうそをつけない人になりましたから、とてもおかしい話(はなし)になります。"
+        ],
+        "images": [
+          {
+            "src": "assets/images/ssTeam.jpg",
+            "alt": "『Shadow Slave』に登場するキャラクターたち",
+            "caption": "サニーと物語のキャラクターたち"
+          }
+        ]
+      },
+      {
+        "heading": "",
+        "paragraphs": [
+          "おもしろいし、おかしいし、かっこいいし、これは僕の好きなほんです。せかいとキャラクターはおもしろくていいと思います。それからこのほんはすごくかんどうします。たくさんやばいしゅんかんがある。「キャラクターは死にますか？」と思います。たくさんなぞとひみつもあります。時間があったら、読んでみてください。"
+        ]
+      }
+    ],
+    "notes": [
+      { "term": "貧乏(びんぼう)", "meaning": "poor" },
+      { "term": "悪夢(あくむ)", "meaning": "nightmare" },
+      { "term": "とくべつなちから", "meaning": "special power" },
+      { "term": "おかしい", "meaning": "funny / strange" },
+      { "term": "なぞ", "meaning": "mysteries" }
+    ]
   }
 ]

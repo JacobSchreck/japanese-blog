@@ -34,22 +34,37 @@ const navItem = (post, direction) => post
   ? `<a href="${filename(post)}"><small>${direction}</small><strong>${direction === "PREVIOUS POST" ? "← " : ""}${escapeHtml(post.title)}${direction === "NEXT POST" ? " →" : ""}</strong></a>`
   : `<a class="disabled" aria-disabled="true"><small>${direction}</small><strong>${direction === "PREVIOUS POST" ? "← NO ENTRY" : "LOCKED →"}</strong></a>`;
 
-const renderBody = (post) => post.sections.map((section, sectionIndex) => {
+const renderFigure = (item, className = "entry-image") => {
+  const caption = item.caption ? `<figcaption>${escapeHtml(item.caption)}</figcaption>` : "";
+  return `<figure class="${className}"><span class="media-corner" aria-hidden="true"></span><img src="../${escapeHtml(item.src)}" alt="${escapeHtml(item.alt || "")}" loading="lazy">${caption}</figure>`;
+};
+
+const renderBody = (post) => post.sections.map((section) => {
   const heading = section.heading ? `\n        <h2>${escapeHtml(section.heading)}</h2>` : "";
   const paragraphs = (section.paragraphs || []).map((paragraph) => {
     return `        <p>${escapeHtml(paragraph)}</p>`;
   }).join("\n");
-  return `${heading}\n${paragraphs}`;
+  const sectionImages = (section.images || []).map((item) => `        ${renderFigure(item, "entry-image inline-media")}`).join("\n");
+  return `${heading}\n${paragraphs}${sectionImages ? `\n${sectionImages}` : ""}`;
 }).join("\n");
 
 const renderImages = (post) => {
   const images = post.images || (post.image ? [post.image] : []);
   if (!images.length) return "";
   const figures = images.map((item) => {
-    const caption = item.caption ? `<figcaption>${escapeHtml(item.caption)}</figcaption>` : "";
-    return `        <figure class="entry-image"><img src="../${escapeHtml(item.src)}" alt="${escapeHtml(item.alt || "")}" loading="lazy">${caption}</figure>`;
+    return `        ${renderFigure(item)}`;
   }).join("\n");
   return `\n      <div class="entry-gallery">\n${figures}\n      </div>`;
+};
+
+const renderCover = (post) => post.coverImage
+  ? `\n      ${renderFigure(post.coverImage, "entry-image cover-media")}`
+  : "";
+
+const renderNotes = (post) => {
+  if (!post.notes?.length) return "";
+  const notes = post.notes.map((note) => `          <div><dt>${escapeHtml(note.term)}</dt><dd>${escapeHtml(note.meaning)}</dd></div>`).join("\n");
+  return `\n      <dl class="entry-notes" aria-label="単語リスト">\n${notes}\n      </dl>`;
 };
 
 const renderPost = (post, index) => `<!doctype html>
@@ -66,7 +81,7 @@ const renderPost = (post, index) => `<!doctype html>
   </header>
   <main class="shell article-shell"><article>
     <header class="article-header"><div class="article-kicker"><span>ENTRY ${post.id}</span><span>${escapeHtml(post.date)}</span><span>${escapeHtml(post.category)}</span></div><h1>${escapeHtml(post.title)}</h1><p class="article-subtitle">${escapeHtml(post.subtitle)}</p></header>
-    <div class="article-body panel">${renderBody(post)}${renderImages(post)}
+    <div class="article-body panel">${renderCover(post)}${renderBody(post)}${renderNotes(post)}${renderImages(post)}
       <div class="entry-end"><span>END OF ENTRY ${post.id}</span><span class="blink">■</span></div>
     </div>
     <nav class="post-nav compact" aria-label="記事ナビゲーション">
