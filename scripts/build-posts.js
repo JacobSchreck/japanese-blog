@@ -98,7 +98,7 @@ const renderCard = (post, featured = false) => `      <article class="post-card$
         <a class="post-link" href="posts/${filename(post)}">
           <div class="post-number">${post.id}</div>
           <div class="post-meta"><span>${escapeHtml(post.date)}</span><span>${escapeHtml(post.category)}</span></div>
-          <h3>${escapeHtml(post.title)}</h3><p>${escapeHtml(post.summary)}</p>
+          <h3>${escapeHtml(post.title)}</h3>
           <div class="post-footer"><span>READ LOG</span><span>→</span></div>
         </a>
       </article>`;
