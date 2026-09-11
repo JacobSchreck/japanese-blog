@@ -63,8 +63,8 @@ const renderCover = (post) => post.coverImage
 
 const renderNotes = (post) => {
   if (!post.notes?.length) return "";
-  const notes = post.notes.map((note) => `          <div><dt>${escapeHtml(note.term)}</dt><dd>${escapeHtml(note.meaning)}</dd></div>`).join("\n");
-  return `\n      <dl class="entry-notes" aria-label="単語リスト">\n${notes}\n      </dl>`;
+  const notes = post.notes.map((note) => `        <p><span>${escapeHtml(note.term)}:</span> ${escapeHtml(note.meaning)}</p>`).join("\n");
+  return `\n      <div class="entry-notes" aria-label="単語リスト">\n${notes}\n      </div>`;
 };
 
 const renderPost = (post, index) => `<!doctype html>
