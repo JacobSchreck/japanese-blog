@@ -84,5 +84,65 @@
       { "term": "おかしい", "meaning": "funny / strange" },
       { "term": "なぞ", "meaning": "mysteries" }
     ]
+  },
+  {
+    "id": "003",
+    "slug": "gyoza",
+    "date": "2026.09.30",
+    "category": "FOOD",
+    "title": "ぎょうざ",
+    "cardTitle": "僕の一番好きな食べ物：ぎょうざ",
+    "subtitle": "",
+    "summary": "僕の一番好きな食べ物、ぎょうざを作りました。",
+    "layout": "split",
+    "sideImage": {
+      "src": "assets/images/dumplingsMe.jpg",
+      "alt": "自分で作ったぎょうざとたれを持っているジェイコブ"
+    },
+    "sections": [
+      {
+        "heading": "",
+        "paragraphs": [
+          "ぎょうざは、僕の一番好きな食べ物です。\n今日、自分(じぶん)でぎょうざを作りました。",
+          "ぎょうざは、肉ややさいが入っている食べ物です。\n日本のぎょうざは、中国(ちゅうごく)のjiaoziから来ました。",
+          "日本のぎょうざは、よくフライパンで焼(や)きます。\n下はカリカリで、上はやわらかいです。\n僕はこの食感(しょっかん)がとても好きです。"
+        ]
+      },
+      {
+        "heading": "",
+        "paragraphs": [
+          "今日は、J. Kenji López-Altのレシピを使いました。\nレシピはこれです。"
+        ],
+        "links": [
+          {
+            "label": "The Best Gyoza Recipe – Serious Eats",
+            "url": "https://www.seriouseats.com/the-best-japanese-pork-and-cabbage-dumplings-gyoza-recipe"
+          }
+        ]
+      },
+      {
+        "heading": "",
+        "paragraphs": [
+          "ぎょうざを作るのは少したいへんでした。\n一つずつ作るので、時間がかかりました。\nでも、とても楽しいと思います。",
+          "味もとてもおいしかったです。\nぶた肉の味が強くて、しょうがとにんにくの味(あじ)もしました。\nたれと一緒(いっしょ)に食べると、もっとおいしかったですよ。",
+          "僕はいつも、もっとかんたんな料理を作ります。\nだから、ぎょうざを作るのは新しいけいけんでした。",
+          "今、ぎょうざは日本でとても人気があります。\nラーメン店やレストランでよく食べられます。\n宇都宮(うつのみや)は、ぎょうざで有名です。",
+          "今日、ぎょうざを作って、とても楽しかったです。\nまた作りたいです。"
+        ]
+      },
+      {
+        "heading": "むずかしい言葉",
+        "headingLevel": 3,
+        "list": [
+          "食感(しょっかん) = texture",
+          "焼(や)きます = to cook / grill / pan-fry",
+          "カリカリ = crispy",
+          "やわらかい = soft / tender",
+          "ずつ = each / at a time",
+          "しょうが = ginger",
+          "にんにく = garlic"
+        ]
+      }
+    ]
   }
 ]

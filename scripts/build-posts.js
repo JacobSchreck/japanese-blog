@@ -13,6 +13,8 @@ const escapeHtml = (value = "") => String(value)
   .replaceAll('"', "&quot;")
   .replaceAll("'", "&#039;");
 
+const formatText = (value = "") => escapeHtml(value).replaceAll("\n", "<br>");
+
 const assertPosts = () => {
   const ids = new Set();
   const slugs = new Set();
@@ -40,12 +42,17 @@ const renderFigure = (item, className = "entry-image") => {
 };
 
 const renderBody = (post) => post.sections.map((section) => {
-  const heading = section.heading ? `\n        <h2>${escapeHtml(section.heading)}</h2>` : "";
+  const headingTag = section.headingLevel === 3 ? "h3" : "h2";
+  const heading = section.heading ? `\n        <${headingTag}>${escapeHtml(section.heading)}</${headingTag}>` : "";
   const paragraphs = (section.paragraphs || []).map((paragraph) => {
-    return `        <p>${escapeHtml(paragraph)}</p>`;
+    return `        <p>${formatText(paragraph)}</p>`;
   }).join("\n");
+  const links = (section.links || []).map((link) => `        <p class="entry-resource"><a href="${escapeHtml(link.url)}" target="_blank" rel="noopener noreferrer">${escapeHtml(link.label)}</a></p>`).join("\n");
+  const list = section.list?.length
+    ? `        <ul class="entry-list">\n${section.list.map((item) => `          <li>${escapeHtml(item)}</li>`).join("\n")}\n        </ul>`
+    : "";
   const sectionImages = (section.images || []).map((item) => `        ${renderFigure(item, "entry-image inline-media")}`).join("\n");
-  return `${heading}\n${paragraphs}${sectionImages ? `\n${sectionImages}` : ""}`;
+  return `${heading}\n${paragraphs}${links ? `\n${links}` : ""}${list ? `\n${list}` : ""}${sectionImages ? `\n${sectionImages}` : ""}`;
 }).join("\n");
 
 const renderImages = (post) => {
@@ -67,6 +74,14 @@ const renderNotes = (post) => {
   return `\n      <div class="entry-notes" aria-label="単語リスト">\n${notes}\n      </div>`;
 };
 
+const renderArticleContent = (post) => {
+  const prose = `${renderBody(post)}${renderNotes(post)}`;
+  if (post.layout === "split" && post.sideImage) {
+    return `\n      <div class="entry-split">\n        <div class="entry-prose">${prose}\n        </div>\n        ${renderFigure(post.sideImage, "entry-image side-media")}\n      </div>${renderImages(post)}`;
+  }
+  return `${renderCover(post)}${prose}${renderImages(post)}`;
+};
+
 const renderPost = (post, index) => `<!doctype html>
 <html lang="ja">
 <head>
@@ -80,8 +95,8 @@ const renderPost = (post, index) => `<!doctype html>
     <a class="brand" href="../index.html"><span class="brand-mark">◆</span><span><strong>BLOG</strong></span></a>
   </header>
   <main class="shell article-shell"><article>
-    <header class="article-header"><div class="article-kicker"><span>ENTRY ${post.id}</span><span>${escapeHtml(post.date)}</span><span>${escapeHtml(post.category)}</span></div><h1>${escapeHtml(post.title)}</h1><p class="article-subtitle">${escapeHtml(post.subtitle)}</p></header>
-    <div class="article-body panel">${renderCover(post)}${renderBody(post)}${renderNotes(post)}${renderImages(post)}
+    <header class="article-header"><div class="article-kicker"><span>ENTRY ${post.id}</span><span>${escapeHtml(post.date)}</span><span>${escapeHtml(post.category)}</span></div><h1>${escapeHtml(post.title)}</h1>${post.subtitle ? `<p class="article-subtitle">${escapeHtml(post.subtitle)}</p>` : ""}</header>
+    <div class="article-body panel">${renderArticleContent(post)}
       <div class="entry-end"><span>END OF ENTRY ${post.id}</span><span class="blink">■</span></div>
     </div>
     <nav class="post-nav compact" aria-label="記事ナビゲーション">
@@ -98,7 +113,7 @@ const renderCard = (post, featured = false) => `      <article class="post-card$
         <a class="post-link" href="posts/${filename(post)}">
           <div class="post-number">${post.id}</div>
           <div class="post-meta"><span>${escapeHtml(post.date)}</span><span>${escapeHtml(post.category)}</span></div>
-          <h3>${escapeHtml(post.title)}</h3>
+          <h3>${escapeHtml(post.cardTitle || post.title)}</h3>
           <div class="post-footer"><span>READ LOG</span><span>→</span></div>
         </a>
       </article>`;
@@ -116,7 +131,7 @@ posts.sort((a, b) => a.id.localeCompare(b.id));
 fs.mkdirSync(postsDir, { recursive: true });
 posts.forEach((post, index) => fs.writeFileSync(path.join(postsDir, filename(post)), renderPost(post, index)));
 
-const recent = [...posts].reverse().slice(0, 2);
+const recent = [...posts].reverse();
 const cards = recent.map((post, index) => renderCard(post, index === 0)).join("\n");
 const indexFile = path.join(root, "index.html");
 replaceGeneratedSection(indexFile, `    <section class="post-grid">\n${cards}\n    </section>`);
