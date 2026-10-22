@@ -153,17 +153,18 @@
     "title": "『THE FINALS』について",
     "subtitle": "",
     "summary": "『THE FINALS』は、あまり有名ではありませんが、とてもいいFPSゲームです。",
+    "layout": "video-split",
+    "video": {
+      "src": "assets/images/the-finals-gameplay.mp4",
+      "poster": "assets/images/the-finals.jpg",
+      "label": "『THE FINALS』のゲームプレイ動画"
+    },
     "sections": [
       {
         "heading": "",
         "paragraphs": [
           "『THE FINALS』は、あまり有名ではありませんが、とてもいいFPSゲームです。とても楽しくて、ゲームのデザインも全部かっこいいです。ほかのゲームより、いろいろなたたかい方ができるので、とてもユニークです。それに、とても競争(きょうそう)がはげしいゲームです。"
-        ],
-        "video": {
-          "src": "assets/images/the-finals-gameplay.mp4",
-          "poster": "assets/images/the-finals.jpg",
-          "label": "『THE FINALS』のゲームプレイ動画"
-        }
+        ]
       },
       {
         "heading": "",

@@ -648,6 +648,9 @@ a.archive-row:hover {
 
 .entry-video {
   position: relative;
+  min-width: 0;
+  max-width: 100%;
+  overflow: hidden;
   margin: 42px 0 48px;
   padding: 9px;
   border: 1px solid var(--line-strong);
@@ -658,9 +661,24 @@ a.archive-row:hover {
 .entry-video video {
   display: block;
   width: 100%;
-  max-height: 68vh;
+  max-width: 100%;
+  height: auto;
+  aspect-ratio: 16 / 9;
+  object-fit: contain;
+  max-height: min(68vh, 620px);
   border: 1px solid rgba(119, 181, 255, .14);
   background: #101721;
+}
+
+.video-split {
+  grid-template-columns: minmax(0, 52fr) minmax(420px, 48fr);
+}
+
+.side-video {
+  position: sticky;
+  top: 28px;
+  width: 100%;
+  margin: 0;
 }
 
 .entry-image:first-child {
@@ -746,6 +764,12 @@ a.archive-row:hover {
     position: static;
     width: min(72%, 300px);
     margin: 8px auto 0;
+    grid-row: 1;
+  }
+  .side-video {
+    position: static;
+    width: 100%;
+    margin: 8px 0 0;
     grid-row: 1;
   }
 }

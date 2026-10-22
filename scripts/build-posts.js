@@ -41,8 +41,8 @@ const renderFigure = (item, className = "entry-image") => {
   return `<figure class="${className}"><span class="media-corner" aria-hidden="true"></span><img src="../${escapeHtml(item.src)}" alt="${escapeHtml(item.alt || "")}" loading="lazy">${caption}</figure>`;
 };
 
-const renderVideo = (item) => item?.src
-  ? `<figure class="entry-video"><span class="media-corner" aria-hidden="true"></span><video controls playsinline preload="metadata"${item.poster ? ` poster="../${escapeHtml(item.poster)}"` : ""} aria-label="${escapeHtml(item.label || "動画")}"><source src="../${escapeHtml(item.src)}" type="video/mp4">お使いのブラウザは動画の再生に対応していません。</video></figure>`
+const renderVideo = (item, className = "entry-video") => item?.src
+  ? `<figure class="${className}"><span class="media-corner" aria-hidden="true"></span><video controls playsinline preload="metadata"${item.poster ? ` poster="../${escapeHtml(item.poster)}"` : ""} aria-label="${escapeHtml(item.label || "動画")}"><source src="../${escapeHtml(item.src)}" type="video/mp4">お使いのブラウザは動画の再生に対応していません。</video></figure>`
   : "";
 
 const renderBody = (post) => post.sections.map((section) => {
@@ -90,6 +90,9 @@ const renderArticleContent = (post) => {
   if (post.layout === "split" && post.sideImage) {
     return `\n      <div class="entry-split">\n        <div class="entry-prose">${prose}\n        </div>\n        ${renderFigure(post.sideImage, "entry-image side-media")}\n      </div>${renderImages(post)}`;
   }
+  if (post.layout === "video-split" && post.video) {
+    return `\n      <div class="entry-split video-split">\n        <div class="entry-prose">${prose}\n        </div>\n        ${renderVideo(post.video, "entry-video side-video")}\n      </div>${renderImages(post)}`;
+  }
   return `${renderCover(post)}${prose}${renderImages(post)}`;
 };
 
@@ -105,7 +108,7 @@ const renderPost = (post, index) => `<!doctype html>
   <header class="site-header">
     <a class="brand" href="../index.html"><span class="brand-mark">◆</span><span><strong>BLOG</strong></span></a>
   </header>
-  <main class="shell article-shell${post.layout === "split" ? " wide-article" : ""}"><article>
+  <main class="shell article-shell${post.layout === "split" || post.layout === "video-split" ? " wide-article" : ""}"><article>
     <header class="article-header"><div class="article-kicker"><span>ENTRY ${post.id}</span><span>${escapeHtml(post.date)}</span><span>${escapeHtml(post.category)}</span></div><h1>${escapeHtml(post.title)}</h1>${post.subtitle ? `<p class="article-subtitle">${escapeHtml(post.subtitle)}</p>` : ""}</header>
     <div class="article-body panel">${renderArticleContent(post)}
       <div class="entry-end"><span>END OF ENTRY ${post.id}</span><span class="blink">■</span></div>
