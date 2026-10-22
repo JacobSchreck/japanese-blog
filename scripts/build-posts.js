@@ -42,7 +42,7 @@ const renderFigure = (item, className = "entry-image") => {
 };
 
 const renderVideo = (item, className = "entry-video") => item?.src
-  ? `<figure class="${className}"><span class="media-corner" aria-hidden="true"></span><video controls playsinline preload="metadata"${item.poster ? ` poster="../${escapeHtml(item.poster)}"` : ""} aria-label="${escapeHtml(item.label || "動画")}"><source src="../${escapeHtml(item.src)}" type="video/mp4">お使いのブラウザは動画の再生に対応していません。</video></figure>`
+  ? `<figure class="${className}"><span class="media-corner" aria-hidden="true"></span><div class="video-viewport"><video controls playsinline preload="metadata"${item.poster ? ` poster="../${escapeHtml(item.poster)}"` : ""} aria-label="${escapeHtml(item.label || "動画")}"><source src="../${escapeHtml(item.src)}" type="video/mp4">お使いのブラウザは動画の再生に対応していません。</video></div></figure>`
   : "";
 
 const renderBody = (post) => post.sections.map((section) => {

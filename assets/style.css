@@ -659,15 +659,26 @@ a.archive-row:hover {
 }
 
 .entry-video video {
+  position: absolute;
+  inset: 0;
   display: block;
-  width: 100%;
-  max-width: 100%;
-  height: auto;
-  aspect-ratio: 16 / 9;
+  width: 100% !important;
+  max-width: 100% !important;
+  height: 100% !important;
+  max-height: 100% !important;
   object-fit: contain;
-  max-height: min(68vh, 620px);
   border: 1px solid rgba(119, 181, 255, .14);
   background: #101721;
+}
+
+.video-viewport {
+  position: relative;
+  width: 100%;
+  max-width: 100%;
+  aspect-ratio: 16 / 9;
+  overflow: hidden;
+  background: #101721;
+  contain: layout paint size;
 }
 
 .video-split {
@@ -677,8 +688,12 @@ a.archive-row:hover {
 .side-video {
   position: sticky;
   top: 28px;
-  width: 100%;
+  justify-self: center;
+  width: min(100%, 480px);
+  max-width: 100%;
   margin: 0;
+  box-sizing: border-box;
+  contain: layout paint;
 }
 
 .entry-image:first-child {
