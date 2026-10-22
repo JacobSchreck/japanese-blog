@@ -41,6 +41,10 @@ const renderFigure = (item, className = "entry-image") => {
   return `<figure class="${className}"><span class="media-corner" aria-hidden="true"></span><img src="../${escapeHtml(item.src)}" alt="${escapeHtml(item.alt || "")}" loading="lazy">${caption}</figure>`;
 };
 
+const renderVideo = (item) => item?.src
+  ? `<figure class="entry-video"><span class="media-corner" aria-hidden="true"></span><video controls playsinline preload="metadata"${item.poster ? ` poster="../${escapeHtml(item.poster)}"` : ""} aria-label="${escapeHtml(item.label || "動画")}"><source src="../${escapeHtml(item.src)}" type="video/mp4">お使いのブラウザは動画の再生に対応していません。</video></figure>`
+  : "";
+
 const renderBody = (post) => post.sections.map((section) => {
   const headingTag = section.headingLevel === 3 ? "h3" : "h2";
   const heading = section.heading ? `\n        <${headingTag}>${escapeHtml(section.heading)}</${headingTag}>` : "";
@@ -51,8 +55,9 @@ const renderBody = (post) => post.sections.map((section) => {
   const list = section.list?.length
     ? `        <ul class="entry-list">\n${section.list.map((item) => `          <li>${escapeHtml(item)}</li>`).join("\n")}\n        </ul>`
     : "";
+  const video = renderVideo(section.video);
   const sectionImages = (section.images || []).map((item) => `        ${renderFigure(item, "entry-image inline-media")}`).join("\n");
-  return `${heading}\n${paragraphs}${links ? `\n${links}` : ""}${list ? `\n${list}` : ""}${sectionImages ? `\n${sectionImages}` : ""}`;
+  return `${heading}\n${paragraphs}${links ? `\n${links}` : ""}${list ? `\n${list}` : ""}${video ? `\n        ${video}` : ""}${sectionImages ? `\n${sectionImages}` : ""}`;
 }).join("\n");
 
 const renderImages = (post) => {
@@ -74,8 +79,14 @@ const renderNotes = (post) => {
   return `\n      <div class="entry-notes" aria-label="単語リスト">\n${notes}\n      </div>`;
 };
 
+const renderNoteLines = (post) => {
+  if (!post.noteLines?.length) return "";
+  const lines = post.noteLines.map((line) => `        <p>${escapeHtml(line)}</p>`).join("\n");
+  return `\n      <div class="entry-notes exact-notes" aria-label="単語リスト">\n${lines}\n      </div>`;
+};
+
 const renderArticleContent = (post) => {
-  const prose = `${renderBody(post)}${renderNotes(post)}`;
+  const prose = `${renderBody(post)}${renderNotes(post)}${renderNoteLines(post)}`;
   if (post.layout === "split" && post.sideImage) {
     return `\n      <div class="entry-split">\n        <div class="entry-prose">${prose}\n        </div>\n        ${renderFigure(post.sideImage, "entry-image side-media")}\n      </div>${renderImages(post)}`;
   }

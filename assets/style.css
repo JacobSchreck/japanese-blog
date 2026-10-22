@@ -646,6 +646,23 @@ a.archive-row:hover {
   box-shadow: 0 18px 45px rgba(0, 0, 0, .28), inset 0 0 0 1px rgba(255, 255, 255, .018);
 }
 
+.entry-video {
+  position: relative;
+  margin: 42px 0 48px;
+  padding: 9px;
+  border: 1px solid var(--line-strong);
+  background: linear-gradient(145deg, rgba(145, 226, 255, .1), rgba(13, 19, 30, .94));
+  box-shadow: 0 18px 45px rgba(0, 0, 0, .28), inset 0 0 0 1px rgba(255, 255, 255, .018);
+}
+
+.entry-video video {
+  display: block;
+  width: 100%;
+  max-height: 68vh;
+  border: 1px solid rgba(119, 181, 255, .14);
+  background: #101721;
+}
+
 .entry-image:first-child {
   grid-column: auto;
 }
