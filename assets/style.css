@@ -732,6 +732,10 @@ a.archive-row:hover {
   margin: 42px auto 48px;
 }
 
+.inline-media.wide-media {
+  width: min(100%, 640px);
+}
+
 .entry-image:first-child img {
   height: auto;
   max-height: none;

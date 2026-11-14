@@ -56,7 +56,7 @@ const renderBody = (post) => post.sections.map((section) => {
     ? `        <ul class="entry-list">\n${section.list.map((item) => `          <li>${escapeHtml(item)}</li>`).join("\n")}\n        </ul>`
     : "";
   const video = renderVideo(section.video);
-  const sectionImages = (section.images || []).map((item) => `        ${renderFigure(item, "entry-image inline-media")}`).join("\n");
+  const sectionImages = (section.images || []).map((item) => `        ${renderFigure(item, `entry-image inline-media${item.wide ? " wide-media" : ""}`)}`).join("\n");
   return `${heading}\n${paragraphs}${links ? `\n${links}` : ""}${list ? `\n${list}` : ""}${video ? `\n        ${video}` : ""}${sectionImages ? `\n${sectionImages}` : ""}`;
 }).join("\n");
 
